@@ -100,19 +100,17 @@
             font-size: small;
         }
 
-
         .modal {
             position: fixed;
-            /* display: none; */
+            display: none;
             padding: 30px;
             width: 50%;
             border-radius: 50px;
+            z-index: 100;
         }
-
         .campo {
             width: 200px;
         }
-
         .center-modal {
             display: flex;
             justify-content: center;
@@ -165,7 +163,7 @@
             }
             .modal {
                 padding: 30px;
-                width: 100%;
+                width: 80%;
             }
         }
     </style>
@@ -179,7 +177,7 @@
                 <input type="email" class="input size" id="email" name="email" placeholder="email" required>
                 <label for="password">password</label>
                 <input type="password" class="input size" id="password" name="password" placeholder="password" required>
-                <input type="submit" class="input size button blue" onclick="logar()" value="login">
+                <input type="button" class="input size button blue" onclick="signin()" value="login">
             </form>
             <div class="img white">
             </div>
@@ -188,8 +186,8 @@
 
     <div class="frame" id="dash">
         <div class="fixed">
-            <i class="fas fa-plus button green" id="myBtn"></i>
-            <i class="fas fa-sign-out-alt button red" onclick="deslogar()"></i>
+            <i class="fas fa-plus button green" id="open"></i>
+            <i class="fas fa-sign-out-alt button red" onclick="out()"></i>
         </div>
         <div class="container" id="container">
             <ul class="card white">
@@ -230,14 +228,15 @@
     </div>
         
     <div class="center-modal">
-        <form class="modal white" id="myModal">
+        <form class="modal white" id="modal">
+            <h2>Calcular nota</h2>
             <div>
                 <label for="ra">ra</label>
                 <input type="text" class="input size" id="ra" name="ra" placeholder="ra" required>
             </div>
             <div>
                 <label for="name">nome</label>
-                <input type="text" class="input size" id="name" name="name" placeholder="name" required>
+                <input type="text" class="input size" id="name" name="name" placeholder="thiago..." required>
             </div>
             <div>
                 <label for="course">curso</label>
@@ -262,8 +261,8 @@
                 <label>reprovado</label>
             </div>
             <div>
-                <input type="submit" class="input button blue" value="salvar">
-                <input type="button" class="input button red" value="cancelar">
+                <input type="button" class="input button blue" onclick="create()" value="salvar">
+                <input type="button" class="input button red" id="cancel" value="cancelar">
             </div>
         </form>
     </div>
@@ -273,14 +272,17 @@
         var body = document.querySelector('body');
         var login = document.querySelector('#login');
         var dash = document.querySelector('#dash');
-        var modal = document.querySelector('#myModal');
-        var button = document.querySelector('#myBtn');
+        var modal = document.querySelector('#modal');
+        var open = document.querySelector('#open');
+        var cancel = document.querySelector('#cancel');
         var email = document.querySelector('#email');
         var password = document.querySelector('#password');
         var container = document.querySelector('#container');
 
+
         var entrar = 'login';
         var home = 'home';
+        var status = false;
 
         var status;
         var alunos = [
@@ -305,44 +307,34 @@
                 result: 'aprovado'
             }
         ];
-
+        
         init();
 
         function init()
         {
-            // deslogar();
-            logar();
-            tablef();
+            signin();
         }
 
-        // function validacao()
-        // {
-        //     if (email.value == 'abc' && password.value == '123') {
-        //         title.innerHTML = home;
-        //         login.style.visibility = 'hidden';
-        //         dash.style.visibility = 'visible';
-        //     }
-        // }
+        function signin()
+        {
+            if (email.value == 'abc' && password.value == '123') {
+                into();
+            } else {
+                out();
+            }
+        }
 
-        // function logar()
-        // {
-        //     if (email.value == 'abc' && password.value == '123') {
-        //         title.innerHTML = home;
-        //         login.style.visibility = 'hidden';
-        //         dash.style.visibility = 'visible';
-        //     }
-        // }
-
-        function logar()
+        function into()
         {
             title.innerHTML = home;
             body.classList.add('primary');
             body.classList.remove('secondy');
             login.style.visibility = 'hidden';
             dash.style.visibility = 'visible';
+            show(alunos);
         }
 
-        function deslogar()
+        function out()
         {
             title.innerHTML = entrar;
             body.classList.add('secondy');
@@ -351,20 +343,46 @@
             login.style.visibility = 'visible';
         }
 
-        function tablef()
-        {
-            alunos.push({
-                ra: 26314797,
-                name: 'Bruno',
-                course: 'adm',
-                subject: 'api',
-                testeOne: 4,
-                testeTwo: 5,
-                total: 4.5,
-                result: 'reprovado'
-            });
+        open.onclick = function() {
+            modal.style.display = "block";
+        }
 
-            alunos.forEach(element => {
+        cancel.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        function create()
+        {
+            var ra = document.querySelector('#ra').value;
+            var name = document.querySelector('#name').value;
+            var course = document.querySelector('#course').value;
+            var subject = document.querySelector('#subject').value;
+            var testeOne = document.querySelector('#testeOne').value;
+            var testeTwo = document.querySelector('#testeTwo').value;
+            var total = (testeOne + testeTwo) / 2;
+            var result = total >= 6 ? 'aprovado' : 'reprovado';
+
+            aluno = {
+                ra: ra,
+                name: name,
+                course: course,
+                subject: subject,
+                testeOne: testeOne,
+                testeTwo: testeTwo,
+                total: total,
+                result: result
+            };
+
+            alunos.push(aluno);
+
+            show([aluno]);
+
+            modal.style.display = "none";
+        }
+
+        function show(teste)
+        {
+            teste.forEach(element => {
                 var card = document.createElement("UL");
 
                 var cardItemRa = document.createElement("LI");
@@ -471,16 +489,6 @@
 
                 container.appendChild(card);
             });
-        }
-
-        button.onclick = function() {
-            modal.style.display = "block";
-        }
-
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
         }
     </script>
     <script src="https://kit.fontawesome.com/8b2b26f0e4.js" crossorigin="anonymous"></script>
