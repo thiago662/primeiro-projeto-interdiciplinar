@@ -103,11 +103,19 @@
 
         .modal {
             position: fixed;
-            display: none;
-            padding: 50px;
-            /* float: left; */
-            width: 200px;
+            /* display: none; */
+            padding: 30px;
+            width: 50%;
             border-radius: 50px;
+        }
+
+        .campo {
+            width: 200px;
+        }
+
+        .center-modal {
+            display: flex;
+            justify-content: center;
         }
 
 
@@ -154,6 +162,10 @@
             }
             .card {
                 margin: 16px;
+            }
+            .modal {
+                padding: 30px;
+                width: 100%;
             }
         }
     </style>
@@ -217,27 +229,44 @@
         </div>
     </div>
         
-    <!-- <div class="center"> -->
+    <div class="center-modal">
         <form class="modal white" id="myModal">
-            <span class="close">&times;</span>
-            <label for="email">ra</label>
-            <input type="text" class="input size" id="email" name="email" placeholder="email" required>
-            <label for="email">nome</label>
-            <input type="text" class="input size" id="email" name="email" placeholder="email" required>
-            <label for="email">curso</label>
-            <input type="text" class="input size" id="email" name="email" placeholder="email" required>
-            <label for="email">materia</label>
-            <input type="text" class="input size" id="email" name="email" placeholder="email" required>
-            <label for="email">prova 1</label>
-            <input type="number" class="input size" id="email" name="email" placeholder="email" required>
-            <label for="email">prova 2</label>
-            <input type="number" class="input size" id="email" name="email" placeholder="email" required>
-            <label for="email">total</label>
-            <input type="text" class="input size" id="email" name="email" placeholder="email" required>
-            <label for="email">resultado</label>
-            <input type="text" class="input size" id="email" name="email" placeholder="email" required>
+            <div>
+                <label for="ra">ra</label>
+                <input type="text" class="input size" id="ra" name="ra" placeholder="ra" required>
+            </div>
+            <div>
+                <label for="name">nome</label>
+                <input type="text" class="input size" id="name" name="name" placeholder="name" required>
+            </div>
+            <div>
+                <label for="course">curso</label>
+                <input type="text" class="input size" id="course" name="course" placeholder="course" required>
+            </div>
+            <div>
+                <label for="subject">materia</label>
+                <input type="text" class="input size" id="subject" name="subject" placeholder="subject" required>
+            </div>
+            <div>
+                <label for="testeOne">prova 1</label>
+                <input type="number" class="input size" id="testeOne" name="testeOne" placeholder="7" required>
+            </div>
+            <div>
+                <label for="testeTwo">prova 2</label>
+                <input type="number" class="input size" id="testeTwo" name="testeTwo" placeholder="7" required>
+            </div>
+            <div>
+                <label>total</label>
+                <label>0</label>
+                <label>resultado</label>
+                <label>reprovado</label>
+            </div>
+            <div>
+                <input type="submit" class="input button blue" value="salvar">
+                <input type="button" class="input button red" value="cancelar">
+            </div>
         </form>
-    <!-- </div> -->
+    </div>
 
     <script>
         var title = document.querySelector('title');
