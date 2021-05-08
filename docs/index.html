@@ -247,18 +247,20 @@
                 <input type="text" class="input size" id="subject" name="subject" placeholder="subject" required>
             </div>
             <div>
-                <label for="testeOne">prova 1</label>
-                <input type="number" class="input size" id="testeOne" name="testeOne" placeholder="7" required>
+                <label for="testOne">prova 1</label>
+                <input type="number" class="input size" id="testOne" name="testOne" placeholder="7" onblur="calc();" required>
             </div>
             <div>
-                <label for="testeTwo">prova 2</label>
-                <input type="number" class="input size" id="testeTwo" name="testeTwo" placeholder="7" required>
+                <label for="testTwo">prova 2</label>
+                <input type="number" class="input size" id="testTwo" name="testTwo" placeholder="7" onblur="calc();" required>
             </div>
             <div>
-                <label>total</label>
-                <label>0</label>
-                <label>resultado</label>
-                <label>reprovado</label>
+                <label>total: </label>
+                <span id="total"></span>
+            </div>
+            <div>
+                <label>resultado: </label>
+                <span id="result"></span>
             </div>
             <div>
                 <input type="button" class="input button blue" onclick="create()" value="salvar">
@@ -291,8 +293,8 @@
                 name: 'thiago',
                 course: 'adm',
                 subject: 'api',
-                testeOne: 10,
-                testeTwo: 9,
+                testOne: 10,
+                testTwo: 9,
                 total: 9.5,
                 result: 'aprovado'
             },
@@ -301,8 +303,8 @@
                 name: 'lucas',
                 course: 'adm',
                 subject: 'api',
-                testeOne: 10,
-                testeTwo: 9,
+                testOne: 10,
+                testTwo: 9,
                 total: 9.5,
                 result: 'aprovado'
             }
@@ -341,6 +343,7 @@
             body.classList.remove('primary');
             dash.style.visibility = 'hidden';
             login.style.visibility = 'visible';
+            destroy();
         }
 
         open.onclick = function() {
@@ -351,15 +354,31 @@
             modal.style.display = "none";
         }
 
+        function calc() {
+            var testOne = Number(document.querySelector('#testOne').value);
+            var testTwo = Number(document.querySelector('#testTwo').value);
+            var total = document.querySelector("#total");
+            var result = document.querySelector("#result");
+
+            if (total.textContent === undefined) {
+                total.textContent = Number((testOne + testTwo) / 2);
+                result.textContent = Number((testOne + testTwo) / 2) >= 3 ? 'aprovado' : 'reprovado';
+            }
+            else {
+                total.innerText = Number((testOne + testTwo) / 2);
+                result.innerText = Number((testOne + testTwo) / 2) >= 3 ? 'aprovado' : 'reprovado';
+            }
+        }
+
         function create()
         {
             var ra = document.querySelector('#ra').value;
             var name = document.querySelector('#name').value;
             var course = document.querySelector('#course').value;
             var subject = document.querySelector('#subject').value;
-            var testeOne = document.querySelector('#testeOne').value;
-            var testeTwo = document.querySelector('#testeTwo').value;
-            var total = (testeOne + testeTwo) / 2;
+            var testOne = Number(document.querySelector('#testOne').value);
+            var testTwo = Number(document.querySelector('#testTwo').value);
+            var total = Number((testOne + testTwo) / 2);
             var result = total >= 6 ? 'aprovado' : 'reprovado';
 
             aluno = {
@@ -367,8 +386,8 @@
                 name: name,
                 course: course,
                 subject: subject,
-                testeOne: testeOne,
-                testeTwo: testeTwo,
+                testOne: testOne,
+                testTwo: testTwo,
                 total: total,
                 result: result
             };
@@ -389,8 +408,8 @@
                 var cardItemName = document.createElement("LI");
                 var cardItemCourse = document.createElement("LI");
                 var cardItemSubject = document.createElement("LI");
-                var cardItemTesteOne = document.createElement("LI");
-                var cardItemTesteTwo = document.createElement("LI");
+                var cardItemTestOne = document.createElement("LI");
+                var cardItemTestTwo = document.createElement("LI");
                 var cardItemTotal = document.createElement("LI");
                 var cardItemResult = document.createElement("LI");
 
@@ -398,8 +417,8 @@
                 var nameTitle = document.createElement("H4");
                 var courseTitle = document.createElement("H4");
                 var subjectTitle = document.createElement("H4");
-                var testeOneTitle = document.createElement("H4");
-                var testeTwoTitle = document.createElement("H4");
+                var testOneTitle = document.createElement("H4");
+                var testTwoTitle = document.createElement("H4");
                 var totalTitle = document.createElement("H4");
                 var resultTitle = document.createElement("H4");
 
@@ -407,8 +426,8 @@
                 var name = document.createElement("p");
                 var course = document.createElement("p");
                 var subject = document.createElement("p");
-                var testeOne = document.createElement("p");
-                var testeTwo = document.createElement("p");
+                var testOne = document.createElement("p");
+                var testTwo = document.createElement("p");
                 var total = document.createElement("p");
                 var result = document.createElement("p");
 
@@ -419,8 +438,8 @@
                 cardItemName.classList.add('card-item');
                 cardItemCourse.classList.add('card-item');
                 cardItemSubject.classList.add('card-item');
-                cardItemTesteOne.classList.add('card-item');
-                cardItemTesteTwo.classList.add('card-item');
+                cardItemTestOne.classList.add('card-item');
+                cardItemTestTwo.classList.add('card-item');
                 cardItemTotal.classList.add('card-item');
                 cardItemResult.classList.add('card-item');
 
@@ -428,8 +447,8 @@
                 name.classList.add('card-text');
                 course.classList.add('card-text');
                 subject.classList.add('card-text');
-                testeOne.classList.add('card-text');
-                testeTwo.classList.add('card-text');
+                testOne.classList.add('card-text');
+                testTwo.classList.add('card-text');
                 total.classList.add('card-text');
                 result.classList.add('card-text');
                 
@@ -437,8 +456,8 @@
                 nameTitle.classList.add('card-text');
                 courseTitle.classList.add('card-text');
                 subjectTitle.classList.add('card-text');
-                testeOneTitle.classList.add('card-text');
-                testeTwoTitle.classList.add('card-text');
+                testOneTitle.classList.add('card-text');
+                testTwoTitle.classList.add('card-text');
                 totalTitle.classList.add('card-text');
                 resultTitle.classList.add('card-text');
 
@@ -446,8 +465,8 @@
                 nameTitle.innerHTML = 'nome';
                 courseTitle.innerHTML = 'curso';
                 subjectTitle.innerHTML = 'materia';
-                testeOneTitle.innerHTML = 'prova 1';
-                testeTwoTitle.innerHTML = 'prova 2';
+                testOneTitle.innerHTML = 'prova 1';
+                testTwoTitle.innerHTML = 'prova 2';
                 totalTitle.innerHTML = 'total';
                 resultTitle.innerHTML = 'resultado';
 
@@ -455,8 +474,8 @@
                 name.innerHTML = element.name;
                 course.innerHTML = element.course;
                 subject.innerHTML = element.subject;
-                testeOne.innerHTML = element.testeOne;
-                testeTwo.innerHTML = element.testeTwo;
+                testOne.innerHTML = element.testOne;
+                testTwo.innerHTML = element.testTwo;
                 total.innerHTML = element.total;
                 result.innerHTML = element.result;
 
@@ -464,8 +483,8 @@
                 cardItemName.appendChild(nameTitle);
                 cardItemCourse.appendChild(courseTitle);
                 cardItemSubject.appendChild(subjectTitle);
-                cardItemTesteOne.appendChild(testeOneTitle);
-                cardItemTesteTwo.appendChild(testeTwoTitle);
+                cardItemTestOne.appendChild(testOneTitle);
+                cardItemTestTwo.appendChild(testTwoTitle);
                 cardItemTotal.appendChild(totalTitle);
                 cardItemResult.appendChild(resultTitle);
 
@@ -473,8 +492,8 @@
                 cardItemName.appendChild(name);
                 cardItemCourse.appendChild(course);
                 cardItemSubject.appendChild(subject);
-                cardItemTesteOne.appendChild(testeOne);
-                cardItemTesteTwo.appendChild(testeTwo);
+                cardItemTestOne.appendChild(testOne);
+                cardItemTestTwo.appendChild(testTwo);
                 cardItemTotal.appendChild(total);
                 cardItemResult.appendChild(result);
 
@@ -482,13 +501,18 @@
                 card.appendChild(cardItemName);
                 card.appendChild(cardItemCourse);
                 card.appendChild(cardItemSubject);
-                card.appendChild(cardItemTesteOne);
-                card.appendChild(cardItemTesteTwo);
+                card.appendChild(cardItemTestOne);
+                card.appendChild(cardItemTestTwo);
                 card.appendChild(cardItemTotal);
                 card.appendChild(cardItemResult);
 
                 container.appendChild(card);
             });
+        }
+
+        function destroy()
+        {
+            container.innerHTML = '';
         }
     </script>
     <script src="https://kit.fontawesome.com/8b2b26f0e4.js" crossorigin="anonymous"></script>
