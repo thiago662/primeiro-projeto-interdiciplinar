@@ -67,10 +67,6 @@
             right: 0;
             width: 80px;
         }
-
-
-
-
         .container {
             float:right;
             position:relative;
@@ -100,7 +96,6 @@
             margin: 10px;
             font-size: small;
         }
-
         .modal {
             position: fixed;
             display: none;
@@ -119,10 +114,9 @@
         .modal h2{
             margin-top: 0;
         }
-
-
-
-
+        .result-text {
+            border-radius: 50px;
+        }
         .button {
             cursor: pointer;
         }
@@ -224,7 +218,7 @@
                 </li>
                 <li class="card-item">
                     <h4 class="card-text">resultado</h4>
-                    <p class="card-text">aprovado</p>
+                    <p class="card-text result-text green">aprovado</p>
                 </li>
             </ul>
         </div>
@@ -306,9 +300,9 @@
                 name: 'lucas',
                 course: 'adm',
                 subject: 'api',
-                testOne: 10,
-                testTwo: 9,
-                total: 9.5,
+                testOne: 4,
+                testTwo: 5,
+                total: 4.5,
                 result: 'aprovado'
             }
         ];
@@ -324,8 +318,12 @@
         {
             if (email.value == 'abc' && password.value == '123') {
                 into();
+                email.value = null;
+                password.value = null;
             } else {
                 out();
+                email.value = null;
+                password.value = null;
             }
         }
 
@@ -342,7 +340,7 @@
         function out()
         {
             title.innerHTML = entrar;
-            body.classList.add('secondy');
+            body.classList.add('blue');
             body.classList.remove('primary');
             dash.style.visibility = 'hidden';
             login.style.visibility = 'visible';
@@ -356,6 +354,7 @@
 
         cancel.onclick = function() {
             modal.style.display = "none";
+            clear();
         }
 
         function calc() {
@@ -372,6 +371,19 @@
                 total.innerText = Number((testOne + testTwo) / 2);
                 result.innerText = Number((testOne + testTwo) / 2) >= 3 ? 'aprovado' : 'reprovado';
             }
+        }
+
+        function clear()
+        {
+            document.querySelector('#ra').value = null;
+            document.querySelector('#name').value = null;
+            document.querySelector('#course').value = null;
+            document.querySelector('#subject').value = null;
+            document.querySelector('#testOne').value = null;
+            document.querySelector('#testTwo').value = null;
+
+            document.querySelector('#total').innerHTML = null;
+            document.querySelector('#result').innerHTML = null;
         }
 
         function create()
@@ -401,6 +413,7 @@
             show([aluno]);
 
             modal.style.display = "none";
+            clear();
         }
 
         function show(teste)
@@ -455,6 +468,7 @@
                 testTwo.classList.add('card-text');
                 total.classList.add('card-text');
                 result.classList.add('card-text');
+                result.classList.add('result-text');
                 
                 raTitle.classList.add('card-text');
                 nameTitle.classList.add('card-text');
@@ -482,6 +496,7 @@
                 testTwo.innerHTML = element.testTwo;
                 total.innerHTML = element.total;
                 result.innerHTML = element.result;
+                Number(element.total) >= 6 ? result.classList.add('green') : result.classList.add('red');
 
                 cardItemRa.appendChild(raTitle);
                 cardItemName.appendChild(nameTitle);
