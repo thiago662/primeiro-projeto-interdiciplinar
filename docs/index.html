@@ -10,6 +10,7 @@
             margin: 0;
             font-family: Arial, Helvetica, sans-serif;
             background-color: #ecf4f7;
+            text-transform: capitalize;
         }
         .frame {
             position:absolute;
@@ -115,6 +116,9 @@
             display: flex;
             justify-content: center;
         }
+        .modal h2{
+            margin-top: 0;
+        }
 
 
 
@@ -143,7 +147,6 @@
         .white {
             background-color: #ffffff;
         }
-
         .primary {
             background-color: #f0f3f4;
         }
@@ -343,7 +346,8 @@
             body.classList.remove('primary');
             dash.style.visibility = 'hidden';
             login.style.visibility = 'visible';
-            destroy();
+            modal.style.display = "none";
+            container.innerHTML = '';
         }
 
         open.onclick = function() {
@@ -508,11 +512,6 @@
 
                 container.appendChild(card);
             });
-        }
-
-        function destroy()
-        {
-            container.innerHTML = '';
         }
     </script>
     <script src="https://kit.fontawesome.com/8b2b26f0e4.js" crossorigin="anonymous"></script>
