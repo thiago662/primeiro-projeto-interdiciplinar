@@ -309,13 +309,11 @@
         
         init();
 
-        function init()
-        {
+        function init() {
             signin();
         }
 
-        function signin()
-        {
+        function signin() {
             if (email.value == 'abc' && password.value == '123') {
                 into();
                 email.value = null;
@@ -327,8 +325,7 @@
             }
         }
 
-        function into()
-        {
+        function into() {
             title.innerHTML = home;
             body.classList.add('primary');
             body.classList.remove('secondy');
@@ -337,8 +334,7 @@
             show(alunos);
         }
 
-        function out()
-        {
+        function out() {
             title.innerHTML = entrar;
             body.classList.add('blue');
             body.classList.remove('primary');
@@ -377,8 +373,7 @@
             }
         }
 
-        function clear()
-        {
+        function clear() {
             document.querySelector('#ra').value = null;
             document.querySelector('#name').value = null;
             document.querySelector('#course').value = null;
@@ -390,8 +385,7 @@
             document.querySelector('#result').innerHTML = null;
         }
 
-        function create()
-        {
+        function create() {
             var ra = document.querySelector('#ra').value;
             var name = document.querySelector('#name').value;
             var course = document.querySelector('#course').value;
@@ -401,27 +395,36 @@
             var total = Number((testOne + testTwo) / 2);
             var result = total >= 6 ? 'aprovado' : 'reprovado';
 
-            aluno = {
-                ra: ra,
-                name: name,
-                course: course,
-                subject: subject,
-                testOne: testOne,
-                testTwo: testTwo,
-                total: total,
-                result: result
-            };
+            if (
+                ra != '' &&
+                name != '' &&
+                course != '' &&
+                subject != '' &&
+                testOne != '' &&
+                testTwo != ''
+            ) {
+                console.log(ra == '' ? 'nada' : 'tem');
+                aluno = {
+                    ra: ra,
+                    name: name,
+                    course: course,
+                    subject: subject,
+                    testOne: testOne,
+                    testTwo: testTwo,
+                    total: total,
+                    result: result
+                };
 
-            alunos.push(aluno);
+                alunos.push(aluno);
 
-            show([aluno]);
+                show([aluno]);
 
-            modal.style.display = "none";
-            clear();
+                modal.style.display = "none";
+                clear();
+            }
         }
 
-        function show(teste)
-        {
+        function show(teste) {
             teste.forEach(element => {
                 var card = document.createElement("UL");
 
