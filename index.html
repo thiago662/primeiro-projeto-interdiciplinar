@@ -169,11 +169,11 @@
     <div class="frame center" id="login">
         <div class="">
             <form class="form white">
-                <h2 class="text-center">login</h2>
+                <h2 class="text-center"><i class="far fa-user fa-3x"></i></h2>
                 <label for="email">email</label>
-                <input type="email" class="input size" id="email" name="email" placeholder="email" required>
+                <input type="email" class="input size" id="email" name="email" placeholder="abc" required>
                 <label for="password">password</label>
-                <input type="password" class="input size" id="password" name="password" placeholder="password" required>
+                <input type="password" class="input size" id="password" name="password" placeholder="123" required>
                 <input type="button" class="input size button blue" onclick="signin()" value="login">
             </form>
             <div class="img white">
@@ -362,14 +362,18 @@
             var testTwo = Number(document.querySelector('#testTwo').value);
             var total = document.querySelector("#total");
             var result = document.querySelector("#result");
+            result.classList.add('result-text');
+            result.classList.add('card-text');
 
             if (total.textContent === undefined) {
                 total.textContent = Number((testOne + testTwo) / 2);
-                result.textContent = Number((testOne + testTwo) / 2) >= 3 ? 'aprovado' : 'reprovado';
+                result.textContent = Number((testOne + testTwo) / 2) >= 6 ? 'aprovado' : 'reprovado';
+                Number((testOne + testTwo) / 2) >= 6 ? result.classList.add('green') : result.classList.add('red');
             }
             else {
                 total.innerText = Number((testOne + testTwo) / 2);
-                result.innerText = Number((testOne + testTwo) / 2) >= 3 ? 'aprovado' : 'reprovado';
+                result.innerText = Number((testOne + testTwo) / 2) >= 6 ? 'aprovado' : 'reprovado';
+                Number((testOne + testTwo) / 2) >= 6 ? result.classList.add('green') : result.classList.add('red');
             }
         }
 
